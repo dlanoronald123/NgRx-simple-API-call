@@ -1,15 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppComponent } from './app.component';
+import { AppComponent } from "./app.component";
 
-import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './app.reducer';
-import { AnimeSearchComponent } from './anime-search/anime-search.component';
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { AnimeModule } from "./anime-search/anime.module";
 
 @NgModule({
-  declarations: [AppComponent, AnimeSearchComponent],
-  imports: [BrowserModule, StoreModule.forRoot({ count: counterReducer })],
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AnimeModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
