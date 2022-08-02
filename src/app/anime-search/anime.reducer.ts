@@ -9,9 +9,9 @@ export interface AnimeState extends EntityState<Anime> {
   pagination: Pagination;
 }
 
-export const animeAdapter: EntityAdapter<Anime> = createEntityAdapter<Anime>(
-  {}
-);
+export const animeAdapter: EntityAdapter<Anime> = createEntityAdapter<Anime>({
+  selectId: (data: any) => data.mal_id,
+});
 
 export const initialState: Anime[] = [];
 

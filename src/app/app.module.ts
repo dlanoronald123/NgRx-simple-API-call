@@ -6,6 +6,7 @@ import { AppComponent } from "./app.component";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { AnimeModule } from "./anime-search/anime.module";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +15,9 @@ import { AnimeModule } from "./anime-search/anime.module";
     AnimeModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: false,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

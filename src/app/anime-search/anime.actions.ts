@@ -13,7 +13,12 @@ export const loadAnimeSuccess = createAction(
 
 export const loadAnimeFailed = createAction("[Anime API] Anime Loaded Error");
 
-export const newPage = createAction(
-  "[Anime Page] Next Page",
+export const loadNextAnimeResults = createAction(
+  "[Anime Page] Load Next Page",
+  props<{ id: string }>()
+);
+
+export const loadPrevAnimeResults = createAction(
+  "[Anime Page] Load Previous Page",
   props<{ id: string }>()
 );
