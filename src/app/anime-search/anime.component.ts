@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { Anime } from "./anime";
+import { loadAnime } from "./anime.actions";
+import { Anime } from "./anime.state";
 
 @Component({
   selector: "app-anime",
@@ -9,11 +10,29 @@ import { Anime } from "./anime";
 })
 export class AnimePageComponent implements OnInit {
   anime$: Observable<Anime[]> = this.store.select((state) => state.anime);
+  prvs = 0;
+  nxt = 0;
+  prev$: any;
+  next$: any;
 
-  constructor(private store: Store<{ anime: Anime[] }>) {}
+  constructor(private store: Store<{ anime: Anime[] }>) {
+    // this.prev$.subscribe((data: any) => {
+    //   this.prvs = data;
+    // });
+    // this.next$.subscribe((data: any) => {
+    //   this.nxt = data;
+    // });
+  }
 
   ngOnInit(): void {
-    // this.movieService.getAll().subscribe((movies) => (this.movies = movies));
-    this.store.dispatch({ type: "[Anime Page] Load Anime" });
+    this.store.dispatch(loadAnime({ page: 0 }));
+  }
+
+  prevPage() {
+    this.store.dispatch(loadAnime({ page: this.prvs }));
+  }
+
+  nextPage() {
+    this.store.dispatch(loadAnime({ page: this.nxt }));
   }
 }

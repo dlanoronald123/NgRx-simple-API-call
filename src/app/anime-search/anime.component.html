@@ -1,4 +1,13 @@
-<li *ngFor="let anime of anime$ | async">
-  {{ anime.name }}
-</li>
-<!-- {{ anime$ | async | json }} -->
+<button *ngIf="prev$ | async" type="button" (click)="prevPage()">
+  Previous
+</button>
+<button *ngIf="next$ | async" type="button" (click)="nextPage()">Next</button>
+
+<div *ngFor="let anime of anime$ | async">
+  <h3>{{ anime.title }}</h3>
+  <p>{{ anime.synopsis }}</p>
+  <div>
+    <span>No. of episodes: {{ anime.episodes }} </span><br />
+    <span>{{ anime.rating }} </span>
+  </div>
+</div>

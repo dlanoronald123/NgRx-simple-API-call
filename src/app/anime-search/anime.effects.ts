@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { map, mergeMap, catchError } from "rxjs/operators";
+import { map, mergeMap, catchError, tap } from "rxjs/operators";
 import { loadAnimeSuccess } from "./anime.actions";
 import { AnimeService } from "./anime.service";
 
@@ -10,9 +10,10 @@ export class AnimeEffects {
   loadAnime$ = createEffect(() =>
     this.actions$.pipe(
       ofType("[Anime Page] Load Anime"),
-      mergeMap(() =>
-        this.animeService.getAll().pipe(
-          map((anime) => loadAnimeSuccess({ payload: anime })),
+      mergeMap((action) =>
+        this.animeService.getAll(action).pipe(
+          tap(console.log),
+          map((anime) => loadAnimeSuccess({ payload: anime.data })),
           catchError(() => of({ type: "[Anime API] Anime Loaded Error" }))
         )
       )

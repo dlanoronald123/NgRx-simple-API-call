@@ -1,7 +1,10 @@
 import { createAction, props } from "@ngrx/store";
-import { Anime } from "./anime";
+import { Anime } from "./anime.state";
 
-export const loadAnime = createAction("[Anime Page] Load Anime");
+export const loadAnime = createAction(
+  "[Anime Page] Load Anime",
+  props<{ page: number }>()
+);
 
 export const loadAnimeSuccess = createAction(
   "[Anime API] Anime Loaded Success",
