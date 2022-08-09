@@ -1,13 +1,20 @@
+<form (submit)="search()">
+  Titulo: <input type="text" [(ngModel)]="title" name="title" />
+  <button>Find</button>
+</form>
+
+<button *ngIf="next$ | async" type="button" (click)="nextPage()">Next</button>
 <button *ngIf="prev$ | async" type="button" (click)="prevPage()">
   Previous
 </button>
-<button *ngIf="next$ | async" type="button" (click)="nextPage()">Next</button>
 
-<div *ngFor="let anime of anime$ | async">
-  <h3>{{ anime.title }}</h3>
-  <p>{{ anime.synopsis }}</p>
-  <div>
-    <span>No. of episodes: {{ anime.episodes }} </span><br />
-    <span>{{ anime.rating }} </span>
+<div *ngIf="!(loading$ | async)">
+  <div *ngFor="let anime of anime$ | async">
+    <h3>{{ anime.title }}</h3>
+    <p>{{ anime.synopsis }}</p>
+    <div>
+      <span>No. of episodes: {{ anime.episodes }} </span><br />
+      <span>{{ anime.rating }} </span>
+    </div>
   </div>
 </div>

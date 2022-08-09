@@ -1,8 +1,8 @@
-import { EntityState } from "@ngrx/entity";
-
 export interface Anime {}
 
 export interface Pagination {
-  prevPage: number;
-  nextPage: string | null;
+  previous_page_offset: number;
+  previous_page: string | null;
+  next_page_offset: number;
+  next_page: string | null;
 }

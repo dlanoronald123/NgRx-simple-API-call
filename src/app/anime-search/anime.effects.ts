@@ -10,13 +10,21 @@ export class AnimeEffects {
   loadAnime$ = createEffect(() =>
     this.actions$.pipe(
       ofType("[Anime Page] Load Anime"),
-      mergeMap((action) =>
-        this.animeService.getAll(action).pipe(
+      mergeMap((action) => {
+        return this.animeService.getAll(action["input"], action["page"]).pipe(
           tap(console.log),
-          map((anime) => loadAnimeSuccess({ payload: anime.data })),
-          catchError(() => of({ type: "[Anime API] Anime Loaded Error" }))
-        )
-      )
+          map((anime) => {
+            const pagination = {
+              previous_page_offset: anime.meta.previous_page_offset,
+              previous_page: anime.meta.previous_page,
+              next_page_offset: anime.meta.next_page_offset,
+              next_page: anime.meta.next_page,
+            };
+            return loadAnimeSuccess({ payload: anime.data, pagination });
+          })
+        );
+      }),
+      catchError(() => of({ type: "[Anime API] Anime Loaded Error" }))
     )
   );
 
